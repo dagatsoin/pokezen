@@ -4,6 +4,7 @@ import { inject } from "mobx-react";
 import { Store } from "../api/types";
 
 import ResultList from "./ResultList";
+import SearchInput from "./SearchInput";
 
 const logo = require("./assets/logo.svg");
 
@@ -16,6 +17,7 @@ class App extends React.Component<{store?: Store}> {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
+        <SearchInput/>
         <ResultList searchResult={this.props.store!.searchResult}/> 
       </div>
     );
