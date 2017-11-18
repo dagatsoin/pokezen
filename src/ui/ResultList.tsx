@@ -9,7 +9,8 @@ export default class ResultList extends React.Component<{
     render() {
         return (
             <ul>
-                {this.props.searchResult.map((r: { name: string, url: string }, index: number) => <li key={index}>{r.name}</li> )}
+                {this.props.searchResult
+                    .map((r: { name: string, url: string }, index: number) => <li key={index}>{r.name}</li>)}
             </ul>
         );
     }

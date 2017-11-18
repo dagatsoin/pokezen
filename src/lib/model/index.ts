@@ -1,7 +1,8 @@
 import { observable } from "mobx";
-import { Store } from "../api/types";
+import { Model } from "../../api/types";
 
-export const store: Store = observable({
+export const model: Model = observable({
+    initializing: true,
     pendingRequest: [],
     searchResult: [],
     // Caching pokemons name and url for faster result

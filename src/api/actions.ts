@@ -1,26 +1,35 @@
-import { action } from "mobx";
-import { Axios } from "../data";
-import { store } from "../store";
+import { Axios } from "../lib/data";
+import { model } from "../lib/model";
 import { AxiosResponse } from "axios";
+import actions from "../vendor/arcanium/lib/action/index";
+import { Dispatch } from "../vendor/arcanium/api/types";
 
-function pushRequestId(id: string) {
-    store.pendingRequest.push("pokemon/");
-}
+// Todo: SAM pattern violation. Need to implement mutations. Action should not mutate the model!
 
-function deleteRequestId(id: string) {
-    store.pendingRequest.splice(store.pendingRequest.findIndex(requestId => requestId === "pokemon/"), 1);
-}
+actions.registerAction("PUSH_REST_CALL_ID", function ({ dispatch }: { dispatch: Dispatch }, id: string) {
+    model.pendingRequest.push(id);
+});
 
-export const fetchInitialData = action("FetchData", () => {
-    Axios.get("pokemon/?limit=1000").then(function(response: AxiosResponse) {
-        deleteRequestId("pokemon/");
-        response.data.results.forEach(function (result: { name: string, url: string}) {
-            if (result.name) store.listCache.push({name: result.name, url: result.url, tags: [result.name]});
-        });
-    }).catch(function(reason: any) {
-        deleteRequestId("pokemon/");
+actions.registerAction("DELETE_REST_CALL_ID", function ({ dispatch }: { dispatch: Dispatch }, id: string) {
+    model.pendingRequest.splice(model.pendingRequest.findIndex(requestId => requestId === id), 1);
+});
+
+actions.registerAction("FETCH_INITIAL_DATA", function ({ dispatch }: { dispatch: Dispatch }) {
+    Axios.get("pokemon/?limit=1000").then(function (response: AxiosResponse) {
+        dispatch("DELETE_REST_CALL_ID", "pokemon/");
+        dispatch("COMMIT_INITIAL_DATA", response);
+    }).catch(function (reason: any) {
+        dispatch("DELETE_REST_CALL_ID", "pokemon/");
         console.error(reason);
     });
-    
-    pushRequestId("pokemon/");
+
+    dispatch("PUSH_REST_CALL_ID", "pokemon/");
+});
+
+// todo turn this into a mutation!!
+actions.registerAction("COMMIT_INITIAL_DATA", function ({ dispatch }: { dispatch: Dispatch }, response: AxiosResponse) {
+    console.log(response);
+    response.data.results.forEach(function (result: { name: string, url: string }) {
+        if (result.name) model.listCache.push({ name: result.name, url: result.url, tags: [result.name] });
+    });
 });

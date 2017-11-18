@@ -1,7 +1,7 @@
 import * as React from "react";
 import "./App.css";
 import { inject } from "mobx-react";
-import { Store } from "../api/types";
+import { Model } from "../api/types";
 
 import ResultList from "./ResultList";
 import SearchInput from "./SearchInput";
@@ -9,7 +9,7 @@ import SearchInput from "./SearchInput";
 const logo = require("./assets/logo.svg");
 
 @inject("store")
-class App extends React.Component<{store?: Store}> {
+class App extends React.Component<{store?: Model}> {
   render() {
     return (
       <div className="App">

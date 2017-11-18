@@ -1,5 +1,5 @@
-import { Store } from "../api/types";
+import { Model } from "../api/types";
 
 export interface StoreProps {
-    store: Store;
+    store: Model;
 }

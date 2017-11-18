@@ -1,11 +1,11 @@
 import * as React from "react";
 import { inject, observer } from "mobx-react";
-import { Store } from "../api/types";
+import { Model } from "../api/types";
 
 import AutoComplete from "material-ui/AutoComplete";
-import CircularProgress from 'material-ui/CircularProgress';
+import CircularProgress from "material-ui/CircularProgress";
 
-const SearchInput: React.StatelessComponent<{ store?: Store }> = ({ store }) => (
+const SearchInput: React.StatelessComponent<{ store?: Model }> = ({ store }) => (
     <div>
         {store!.pendingRequest.length ?
             <CircularProgress size={60} thickness={7} />
