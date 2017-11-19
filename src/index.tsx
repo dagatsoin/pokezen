@@ -16,7 +16,7 @@ import "./api/actions";
 import "./lib/state/controlStates";
 import "./lib/state/representations";
 
-dispatch("FETCH_INITIAL_DATA");
+dispatch("FETCH_POKEMEON_LIST");
 
 // todo init container here
 

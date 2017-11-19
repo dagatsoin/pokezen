@@ -6,7 +6,7 @@ export const model: Model = observable({
     pendingRequest: [],
     searchResult: [],
     // Caching pokemons name and url for faster result
-    listCache: [],
+    pokemonList: [],
     // Pokemon details
-    pokemons: []
+    pokemonDetails: []
 });

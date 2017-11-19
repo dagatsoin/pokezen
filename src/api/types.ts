@@ -39,18 +39,17 @@ export type Pokemon = {
     sprites: PokemonSprites;
 };
 
-export type CachedListItem = { 
-    tags: Array<string>, 
+export type PokemonList = Array<{ 
     name: string, 
     url: string
-};
+}>;
 
 export interface Model {
     initializing: boolean;
     pendingRequest: Array<string>;
     searchResult: Array<{ name: string, url: string }>;
-    listCache: Array<CachedListItem>;
-    pokemons: Array<Pokemon>;
+    pokemonList: PokemonList;
+    pokemonDetails: Array<Pokemon>;
 }
 /**
  * In SAM we can represent a model with some UI element or with a ViewModel (or something else ?).

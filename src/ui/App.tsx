@@ -4,12 +4,15 @@ import { inject } from "mobx-react";
 import { Model } from "../api/types";
 
 import ResultList from "./ResultList";
-import SearchInput from "./SearchInput";
+import SearchPanel from "./SearchPanel";
 
 const logo = require("./assets/logo.svg");
 
 @inject("store")
 class App extends React.Component<{store?: Model}> {
+  constructor(props: {store: Model}) {
+    super(props);
+  }
   render() {
     return (
       <div className="App">
@@ -17,7 +20,7 @@ class App extends React.Component<{store?: Model}> {
           <img src={logo} className="App-logo" alt="logo" />
           <h2>Welcome to React</h2>
         </div>
-        <SearchInput/>
+        <SearchPanel/>
         <ResultList searchResult={this.props.store!.searchResult}/> 
       </div>
     );

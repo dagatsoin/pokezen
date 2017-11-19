@@ -1,23 +1,17 @@
 import * as React from "react";
-import { inject, observer } from "mobx-react";
-import { Model } from "../api/types";
+import { observer } from "mobx-react";
 
 import AutoComplete from "material-ui/AutoComplete";
-import CircularProgress from "material-ui/CircularProgress";
 
-const SearchInput: React.StatelessComponent<{ store?: Model }> = ({ store }) => (
+const SearchInput: React.StatelessComponent<{ names?: Array<string> }> = ({ names }) => (
     <div>
-        {store!.pendingRequest.length ?
-            <CircularProgress size={60} thickness={7} />
-            :
-            <AutoComplete
-                floatingLabelText="Search them all..."
-                filter={AutoComplete.caseInsensitiveFilter}
-                dataSource={store!.listCache.map(i => i.name)}
-                maxSearchResults={10}
-            />
-        }
+        <AutoComplete
+            floatingLabelText="Search them all..."
+            filter={AutoComplete.caseInsensitiveFilter}
+            dataSource={names || []}
+            maxSearchResults={10}
+        />
     </div>
 );
 
-export default inject("store")(observer(SearchInput));
+export default observer(SearchInput);

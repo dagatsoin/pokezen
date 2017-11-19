@@ -6,4 +6,4 @@ import { IObjectChange, observe } from "mobx";
  */
 
 // Download image when new entries
-observe(model.listCache, function (change: IObjectChange) { return; });
+observe(model.pokemonList, function (change: IObjectChange) { return; });
