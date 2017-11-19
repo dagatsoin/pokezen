@@ -21,7 +21,7 @@ class App extends React.Component<{store?: Model}> {
           <h2>Welcome to React</h2>
         </div>
         <SearchPanel/>
-        <ResultList searchResult={this.props.store!.searchResult}/> 
+        <ResultList/>
       </div>
     );
   }

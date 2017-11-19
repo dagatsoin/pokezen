@@ -5,6 +5,7 @@ import { Model } from "../api/types";
 
 import SearchInput from "./SearchInput";
 import CircularProgress from "material-ui/CircularProgress";
+import { dispatch } from "../vendor/arcanium/container";
 
 @inject("store")
 @observer
@@ -17,7 +18,12 @@ class SearchPanel extends React.Component<{ store?: Model }> {
     return this.props.store!.pendingRequest.length ?
       <CircularProgress size={60} thickness={7} />
       :
-      <SearchInput names={this.props.store!.pokemonList.map(item => item.name)} />;
+      (
+        <SearchInput
+          onInput={(query: string) => dispatch("SEARCH", query)}
+          names={this.props.store!.names.slice(0)}
+        />
+      );
   }
 }
 
