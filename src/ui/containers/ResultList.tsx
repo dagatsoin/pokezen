@@ -1,8 +1,8 @@
 import { observer, inject } from "mobx-react";
 import * as React from "react";
-import { Model } from "../api/types";
+import { Model } from "../../api/types";
 
-import PokemonList from "./PokemonList";
+import PokemonList from "../components/PokemonList";
 
 @inject("store")
 @observer
@@ -13,7 +13,7 @@ export default class ResultListComp extends React.Component<{
         return (
             <PokemonList
                 list={this.props.store!.searchResult
-                    .sort((a, b) => b.rank - a.rank)
+                    .sort((a, b) => a.rank - b.rank)
                     .map(result => ({ name: result.pokemon.name, url: result.pokemon.url }))}
             />
         );

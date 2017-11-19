@@ -1,11 +1,10 @@
 import * as React from "react";
-import "./App.css";
 import { observer, inject } from "mobx-react";
-import { Model } from "../api/types";
+import { Model } from "../../api/types";
 
-import SearchInput from "./SearchInput";
+import SearchInput from "../components/SearchInput";
 import CircularProgress from "material-ui/CircularProgress";
-import { dispatch } from "../vendor/arcanium/container";
+import { dispatch } from "../../vendor/arcanium/container";
 
 @inject("store")
 @observer

@@ -1,9 +1,8 @@
 import * as React from "react";
-import "./App.css";
 import { observer } from "mobx-react";
 
 import { List, ListItem } from "material-ui/List";
-import { PokemonListItem } from "../api/types";
+import { PokemonListItem } from "../../api/types";
 
 @observer
 class PokemonListComp extends React.Component<{ list: Array<PokemonListItem>}> {
