@@ -14,7 +14,7 @@ export default class ResultListComp extends React.Component<{
             <PokemonList
                 list={this.props.store!.searchResult
                     .sort((a, b) => a.rank - b.rank)
-                    .map(result => ({ name: result.pokemon.name, url: result.pokemon.url }))}
+                    .map(result => ({ name: result.pokemon.name, id: result.pokemon.id }))}
             />
         );
     }

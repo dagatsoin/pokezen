@@ -6,7 +6,6 @@ import SearchPanel from "../containers/SearchPanel";
 
 @observer
 class Home extends React.Component {
-
     render() {
         return (
             <div>

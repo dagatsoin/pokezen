@@ -30,7 +30,16 @@ actions.registerAction("FETCH_INITIAL_DATA", function ({ dispatch }: { dispatch:
 actions.registerAction("SEARCH", function ({ dispatch }: { dispatch: Dispatch }, query: string) {
     Axios.get("search/" + query).then(function (response: AxiosResponse) {
         dispatch("DELETE_REST_CALL_ID", "SEARCH");
-        dispatch("COMMIT_SEARCH_RESULT", response.data);
+        dispatch(
+            "COMMIT_SEARCH_RESULT", 
+            response.data.map((entry: {rank: number, pokemon: {name: string, url: string}}) => ({
+                ...entry,
+                pokemon: {
+                    name: entry.pokemon.name,
+                    id: entry.pokemon.url.match(new RegExp(/([^\/]+)\/?$/))![1]
+                }
+            }))
+        );
     }).catch(function (reason: any) {
         dispatch("DELETE_REST_CALL_ID", "SEARCH");
         console.error(reason);

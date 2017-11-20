@@ -41,13 +41,15 @@ export type Pokemon = {
 
 export type PokemonListItem = { 
     name: string, 
-    url: string
+    id: string
 };
 
-export type ResultList = Array<{ 
-    rank: number, 
-    pokemon: PokemonListItem
-}>;
+export type ResultList = Array<ResultListItem>;
+
+export type ResultListItem = {
+    rank: number;
+    pokemon: PokemonListItem;
+};
 
 export interface Model {
     initializing: boolean;
