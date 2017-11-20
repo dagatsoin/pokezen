@@ -18,13 +18,25 @@ export type NamedAPIResource = {
     url: string;
 };
 
+export type Stat = {
+    id: number;
+    name: string;
+};
+
 export type PokemonStat = {
+    stat: Stat;
     effort: number;
     base_stat: number;
 };
 
 export type PokemonType = {
     slot: number;
+    type: Type;
+};
+
+export type Type = {
+    id: number;
+    name: string; 
 };
 
 export type Pokemon = {
@@ -37,6 +49,7 @@ export type Pokemon = {
     weight: number;
     stats: Array<PokemonStat>;
     sprites: PokemonSprites;
+    types: Array<PokemonType>;
 };
 
 export type PokemonListItem = { 

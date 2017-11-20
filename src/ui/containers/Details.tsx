@@ -4,6 +4,7 @@ import { dispatch } from "../../vendor/arcanium/container";
 import { inject, observer } from "mobx-react";
 import { Model } from "../../api/types";
 import CircularProgress from "material-ui/CircularProgress";
+import { normalize } from "path";
 
 @inject("store")
 @observer
@@ -23,6 +24,21 @@ export default class Details extends React.Component<{
 
     render() {
         const pokemon = this.props.store.pokedex.find(pokemon => pokemon.id === this.id);
-        return pokemon ? <h1>{pokemon.name}</h1> : <CircularProgress size={60} thickness={7} />;
+        return pokemon ? (
+            <div>
+                <h1>{pokemon.name}</h1>
+                <img src={`https://img.pokemondb.net/artwork/${normalize(pokemon.name)}.jpg`} width="256px" alt="" />
+                <ul>
+                    {pokemon.types.map(pokemonType => <li key={pokemonType.slot}>{pokemonType.type.name}</li>)}
+                </ul>
+                <ul>{
+                    pokemon.stats.map(pokemonStat => (
+                        <li key={pokemonStat.stat.name}>
+                            {pokemonStat.stat.name}: {pokemonStat.base_stat} - {pokemonStat.effort}
+                        </li>
+                    ))
+                }</ul>
+            </div>
+        ) : <CircularProgress size={60} thickness={7} />;
     }
 }
