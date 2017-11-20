@@ -56,7 +56,7 @@ export interface Model {
     pendingRequest: Array<string>;
     searchResult: ResultList;
     pokemonList: Array<PokemonListItem>;
-    pokemonDetails: Array<Pokemon>;
+    pokedex: Array<Pokemon>;
     names: Array<string>;
 }
 /**

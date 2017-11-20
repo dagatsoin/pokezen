@@ -3,7 +3,7 @@ import { model } from "../lib/model";
 import { AxiosResponse } from "axios";
 import actions from "../vendor/arcanium/lib/action/index";
 import { Dispatch } from "../vendor/arcanium/api/types";
-import { PokemonListItem, ResultList } from "./types";
+import { PokemonListItem, ResultList, Pokemon } from "./types";
 
 // Todo: SAM pattern violation. Need to implement mutations. Action should not mutate the model!
 
@@ -48,7 +48,22 @@ actions.registerAction("SEARCH", function ({ dispatch }: { dispatch: Dispatch },
     dispatch("PUSH_REST_CALL_ID", "SEARCH");
 });
 
-// todo turn this into a mutation!!
+actions.registerAction("FETCH_POKEMON", function ({ dispatch }: { dispatch: Dispatch }, id: string) {
+    Axios.get("pokemon/" + id).then(function (response: AxiosResponse) {
+        dispatch("DELETE_REST_CALL_ID", "FETCH_POKEMON");
+        dispatch("COMMIT_POKEMON_DETAILS", response.data);
+    }).catch(function (reason: any) {
+        dispatch("DELETE_REST_CALL_ID", "FETCH_POKEMON");
+        console.error(reason);
+    });
+
+    dispatch("PUSH_REST_CALL_ID", "FETCH_POKEMON");
+});
+
+actions.registerAction("COMMIT_POKEMON_DETAILS", function({dispatch}: { dispatch: Dispatch }, pokemon: Pokemon) {
+    model.pokedex.push(pokemon);
+});
+
 actions.registerAction("COMMIT_POKEMON_LIST", function (
     { dispatch }: { dispatch: Dispatch },
     pokemonList: Array<PokemonListItem>

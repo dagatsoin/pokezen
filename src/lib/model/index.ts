@@ -9,5 +9,5 @@ export const model: Model = observable({
     names: [],
     pokemonList: [],
     // Pokemon details
-    pokemonDetails: [],
+    pokedex: [],
 });

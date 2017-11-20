@@ -10,7 +10,7 @@ import { container, dispatch } from "./vendor/arcanium/container";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Home from "./ui/features/Home";
-import SearchInput from "./ui/components/SearchInput";
+import Details from "./ui/containers/Details";
 useStrict(true);
 
 // Arcanium container initialization.
@@ -27,7 +27,7 @@ ReactDOM.render(
       <Provider store={model}>
         <div>
           <Route exact={true} path="/" component={Home} />
-          <Route path="/details" component={SearchInput} />
+          <Route path="/details/:id" component={Details} />
         </div>
       </Provider>
     </MuiThemeProvider>

@@ -17,7 +17,7 @@ class PokemonListComp extends React.Component<{
                 {this.props.list.map(pokemon => <ListItem
                     key={pokemon.name}
                     primaryText={pokemon.name}
-                    onClick={() => (this.props as any).history.push("pokemon/" + pokemon.id)}
+                    onClick={() => (this.props as any).history.push("details/" + pokemon.id)}
                 />)}
             </List>
         );
