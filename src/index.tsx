@@ -11,6 +11,8 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Home from "./ui/features/Home";
 import Details from "./ui/features/Details";
+import AppBar from "./ui/containers/AppBar";
+
 useStrict(true);
 
 // Arcanium container initialization.
@@ -25,7 +27,8 @@ ReactDOM.render(
   <Router>
     <MuiThemeProvider>
       <Provider store={model}>
-        <div>
+        <div style={{display: "flex", width: "100%", flexDirection: "column"}}>
+          <Route path="/" component={AppBar}/>
           <Route exact={true} path="/" component={Home} />
           <Route path="/details/:id" component={Details} />
         </div>

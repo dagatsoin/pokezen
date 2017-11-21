@@ -81,7 +81,7 @@ actions.registerAction("COMMIT_AVARAGE_TYPE_STATS", function(
 });
 
 actions.registerAction("COMMIT_POKEMON_DETAILS", function({dispatch}: { dispatch: Dispatch }, pokemon: Pokemon) {
-    model.pokedex.push(pokemon);
+    model.pokemon = pokemon;
 });
 
 actions.registerAction("COMMIT_POKEMON_LIST", function (

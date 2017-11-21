@@ -72,7 +72,7 @@ export interface Model {
     typeAverageStats: Array<{ 
         type: { name: string, id: number }
         stats: Array<{name: string, value: number}>}>;
-    pokedex: Array<Pokemon>;
+    pokemon: Pokemon | null;
     names: Array<string>;
 }
 /**
