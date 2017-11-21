@@ -90,20 +90,25 @@ export default class Details extends React.Component<{
                     </object>
                 </div>
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                    <List>
-                        <ListItem><h3 style={{ margin: 0 }}>Base Stats</h3></ListItem>
+                    <List style={{width: "200px"}}>
+                        <ListItem><h3 style={{ margin: 0, textAlign: "center" }}>Base Stats</h3></ListItem>
                         <ListItem>
-                            {
-                                this.pokemon.types.map(pokemonType => (
-                                    <Type type={pokemonType.type.name} key={pokemonType.type.url} />
-                                ))
-                            }
+                            <div style={{ display: "flex", justifyContent: "center" }}>
+                                {
+                                    this.pokemon.types.map(pokemonType => (
+                                        <Type type={pokemonType.type.name} key={pokemonType.type.url} />
+                                    ))
+                                }
+                            </div>
                         </ListItem>
                         <Divider />
                         {
                             this.pokemon.stats.map(pokemonStat => (
                                 <ListItem key={pokemonStat.stat.name}>
-                                    {pokemonStat.stat.name}: {pokemonStat.base_stat}
+                                    <div style={{ display: "flex", justifyContent: "space-between" }}>
+                                        <span style={{ color: "#999", textAlign: "left" }}>{pokemonStat.stat.name}</span>
+                                        <span style={{ textAlign: "right" }}>{pokemonStat.base_stat}</span>
+                                    </div>
                                 </ListItem>
                             ))
                         }
@@ -112,13 +117,25 @@ export default class Details extends React.Component<{
                         this.types.map(typeId => {
                             const averageStats = this.props.store.typeAverageStats.find(stats => Number(typeId) === stats.type.id);
                             return averageStats ? (
-                                <List key={typeId}>
-                                    <ListItem><h3 style={{ margin: 0 }}>Average stats for</h3></ListItem>
-                                    <ListItem><Type type={averageStats.type.name} /></ListItem>
+                                <List key={typeId} style={{ width: "133px", justifyContent: "center" }}>
+                                    <ListItem>
+                                        <div style={{ display: "flex", justifyContent: "center" }}>
+                                            <h4 style={{ margin: 0, width: "100px" }}>Type Average</h4>
+                                        </div>
+                                    </ListItem>
+                                    <ListItem>
+                                        <div style={{ display: "flex", justifyContent: "center" }}>
+                                            <Type type={averageStats.type.name} />
+                                        </div>
+                                    </ListItem>
                                     <Divider />
                                     {
                                         averageStats.stats.map(stat => (
-                                            <ListItem key={stat.name}>{stat.name} - {stat.value}</ListItem>
+                                            <ListItem key={stat.name}>
+                                                <div style={{ display: "flex", justifyContent: "center" }}>
+                                                    {stat.value}
+                                                </div>
+                                            </ListItem>
                                         ))
                                     }
 
