@@ -35,7 +35,7 @@ export type PokemonType = {
 };
 
 export type Type = {
-    id: number;
+    url: string;
     name: string; 
 };
 
@@ -69,6 +69,9 @@ export interface Model {
     pendingRequest: Array<string>;
     searchResult: ResultList;
     pokemonList: Array<PokemonListItem>;
+    typeAverageStats: Array<{ 
+        type: { name: string, id: number }
+        stats: Array<{name: string, value: number}>}>;
     pokedex: Array<Pokemon>;
     names: Array<string>;
 }

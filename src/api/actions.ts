@@ -4,6 +4,7 @@ import { AxiosResponse } from "axios";
 import actions from "../vendor/arcanium/lib/action/index";
 import { Dispatch } from "../vendor/arcanium/api/types";
 import { PokemonListItem, ResultList, Pokemon } from "./types";
+import { getIdFromUrl } from "../lib/utils";
 
 // Todo: SAM pattern violation. Need to implement mutations. Action should not mutate the model!
 
@@ -36,7 +37,7 @@ actions.registerAction("SEARCH", function ({ dispatch }: { dispatch: Dispatch },
                 ...entry,
                 pokemon: {
                     name: entry.pokemon.name,
-                    id: entry.pokemon.url.match(new RegExp(/([^\/]+)\/?$/))![1]
+                    id: getIdFromUrl(entry.pokemon.url)
                 }
             }))
         );
@@ -58,6 +59,25 @@ actions.registerAction("FETCH_POKEMON", function ({ dispatch }: { dispatch: Disp
     });
 
     dispatch("PUSH_REST_CALL_ID", "FETCH_POKEMON");
+});
+
+actions.registerAction("FETCH_AVARAGE_TYPE_STATS", function ({dispatch}: { dispatch: Dispatch}, id: string) {
+    Axios.get("average_type_stats/" + id).then(function (response: AxiosResponse) {
+        dispatch("DELETE_REST_CALL_ID", "FETCH_AVARAGE_TYPE_STATS");
+        dispatch("COMMIT_AVARAGE_TYPE_STATS", response.data);
+    }).catch(function (reason: any) {
+        dispatch("DELETE_REST_CALL_ID", "FETCH_AVARAGE_TYPE_STATS");
+        console.error(reason);
+    });
+
+    dispatch("PUSH_REST_CALL_ID", "FETCH_AVARAGE_TYPE_STATS");
+});
+
+actions.registerAction("COMMIT_AVARAGE_TYPE_STATS", function(
+    {dispatch}: { dispatch: Dispatch },
+    averageStats: {type: {id: number, name: string}, stats: Array<{name: string, value: number}>}
+) {
+    model.typeAverageStats.push(averageStats);
 });
 
 actions.registerAction("COMMIT_POKEMON_DETAILS", function({dispatch}: { dispatch: Dispatch }, pokemon: Pokemon) {

@@ -10,4 +10,6 @@ export const model: Model = observable({
     pokemonList: [],
     // Pokemon details
     pokedex: [],
+    // Array of average stats by type
+    typeAverageStats: [],
 });

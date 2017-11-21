@@ -1,0 +1,1 @@
+export const getIdFromUrl = (url: string): string => url.match(new RegExp(/([^\/]+)\/?$/))![1];

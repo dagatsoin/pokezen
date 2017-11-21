@@ -10,7 +10,7 @@ import { container, dispatch } from "./vendor/arcanium/container";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 
 import Home from "./ui/features/Home";
-import Details from "./ui/containers/Details";
+import Details from "./ui/features/Details";
 useStrict(true);
 
 // Arcanium container initialization.
