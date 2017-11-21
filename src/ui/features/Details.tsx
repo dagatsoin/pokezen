@@ -131,6 +131,11 @@ export default class Details extends React.Component<{
                     <TweetFeed hashtag={normalize(this.pokemon.name)} />
                 </div>
             </div>
-        ) : <CircularProgress size={60} thickness={7} />;
+        ) :
+            (
+                <div style={{ display: "flex", justifyContent: "center" }}>
+                    <CircularProgress size={60} thickness={7} />
+                </div>
+            );
     }
 }

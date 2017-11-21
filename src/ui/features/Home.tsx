@@ -8,9 +8,13 @@ import SearchPanel from "../containers/SearchPanel";
 class Home extends React.Component {
     render() {
         return (
-            <div>
-                <SearchPanel />
-                <ResultList />
+            <div style={{ display: "flex", justifyContent: "center", flexDirection: "column" }}>
+                <div style={{ alignSelf: "center" }}>
+                    <SearchPanel />
+                </div>
+                <div style={{ alignSelf: "center" }}>
+                    <ResultList />
+                </div>
             </div>
         );
 
