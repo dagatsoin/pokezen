@@ -38,13 +38,48 @@ export default class Details extends React.Component<{
 
     get types(): Array<string> {
         return this.pokemon!.types.map(pokemonType => getIdFromUrl(pokemonType.type.url));
-    } 
+    }
 
     render() {
         return this.pokemon ? (
             <div>
                 <h1>{this.pokemon.name}</h1>
-                <img src={`https://img.pokemondb.net/artwork/${normalize(this.pokemon.name)}.jpg`} width="256px" alt="" />
+
+                <img src={`https://img.pokemondb.net/artwork/${normalize(this.pokemon.name)}.jpg`} width="256px" />
+
+                <div
+                    style={{
+                        width: "256px",
+                        height: "256px",
+                        position: "relative",
+                    }}
+                >
+                    <div
+                        style={{
+                            width: "100%",
+                            height: "100%",
+                            backgroundSize: "512px 512px",
+                            backgroundPosition: "50% 50%",
+                            backgroundImage: `url(${this.pokemon.sprites.front_default})`,
+                            WebkitFilter: "blur(10px)",
+                            MozFilter: "blur(10px)",
+                            OFilter: "blur(10px)",
+                            MsFilter: "blur(10px)",
+                            filter: "blur(10px)"
+                        }}
+                    />
+                    <img
+                        style={{
+                            position: "absolute",
+                            top: 0,
+                            width: "100%",
+                            height: "100%",
+                            imageRendering: "pixelated"
+                        }}
+                        src={this.pokemon.sprites.front_default}
+                        width="128px"
+                    />
+                </div>
                 <ul>
                     {this.pokemon.types.map(pokemonType => <li key={pokemonType.slot}>{pokemonType.type.name}</li>)}
                 </ul>
@@ -59,7 +94,7 @@ export default class Details extends React.Component<{
                 </ul>
                 {
                     this.types.map(typeId => {
-                        const averageStats = this.props.store.typeAverageStats.find(stats => Number(typeId)  === stats.type.id);
+                        const averageStats = this.props.store.typeAverageStats.find(stats => Number(typeId) === stats.type.id);
                         return averageStats ? (
                             <div key={typeId}>
                                 <p>{averageStats.type.name}</p>
