@@ -3,10 +3,11 @@ import { match } from "react-router-dom";
 import { dispatch } from "../../vendor/arcanium/container";
 import { inject, observer } from "mobx-react";
 import { Model } from "../../api/types";
-import CircularProgress from "material-ui/CircularProgress";
-import { normalize } from "path";
 import { computed, when } from "mobx";
-import { getIdFromUrl } from "../../lib/utils";
+import { normalize, getIdFromUrl } from "../../lib/utils";
+
+import TweetFeed from "../components/TweetFeed";
+import CircularProgress from "material-ui/CircularProgress";
 
 @inject("store")
 @observer
@@ -33,7 +34,7 @@ export default class Details extends React.Component<{
 
     @computed
     get pokemon() {
-        return this.props.store.pokedex.find(pokemon => pokemon.id === this.id);
+        return this.props.store.pokemon && this.props.store.pokemon.id === this.id ? this.props.store.pokemon : null;
     }
 
     get types(): Array<string> {
@@ -43,10 +44,6 @@ export default class Details extends React.Component<{
     render() {
         return this.pokemon ? (
             <div>
-                <h1>{this.pokemon.name}</h1>
-
-                <img src={`https://img.pokemondb.net/artwork/${normalize(this.pokemon.name)}.jpg`} width="256px" />
-
                 <div
                     style={{
                         width: "256px",
@@ -54,31 +51,39 @@ export default class Details extends React.Component<{
                         position: "relative",
                     }}
                 >
-                    <div
-                        style={{
-                            width: "100%",
-                            height: "100%",
-                            backgroundSize: "512px 512px",
-                            backgroundPosition: "50% 50%",
-                            backgroundImage: `url(${this.pokemon.sprites.front_default})`,
-                            WebkitFilter: "blur(10px)",
-                            MozFilter: "blur(10px)",
-                            OFilter: "blur(10px)",
-                            MsFilter: "blur(10px)",
-                            filter: "blur(10px)"
-                        }}
-                    />
-                    <img
-                        style={{
-                            position: "absolute",
-                            top: 0,
-                            width: "100%",
-                            height: "100%",
-                            imageRendering: "pixelated"
-                        }}
-                        src={this.pokemon.sprites.front_default}
-                        width="128px"
-                    />
+                    <object
+                        style={{ position: "absolute", zIndex: 10 }}
+                        data={`https://img.pokemondb.net/artwork/${normalize(this.pokemon.name)}.jpg`}
+                        width="256px"
+                        height="256px"
+                        type="image/png"
+                    >
+                        <div
+                            style={{
+                                width: "100%",
+                                height: "100%",
+                                backgroundSize: "512px 512px",
+                                backgroundPosition: "50% 50%",
+                                backgroundImage: `url(${this.pokemon.sprites.front_default})`,
+                                WebkitFilter: "blur(10px)",
+                                MozFilter: "blur(10px)",
+                                OFilter: "blur(10px)",
+                                MsFilter: "blur(10px)",
+                                filter: "blur(10px)"
+                            }}
+                        />
+                        <img
+                            style={{
+                                position: "absolute",
+                                top: 0,
+                                width: "100%",
+                                height: "100%",
+                                imageRendering: "pixelated"
+                            }}
+                            src={this.pokemon.sprites.front_default}
+                            width="128px"
+                        />
+                    </object>
                 </div>
                 <ul>
                     {this.pokemon.types.map(pokemonType => <li key={pokemonType.slot}>{pokemonType.type.name}</li>)}
@@ -105,6 +110,7 @@ export default class Details extends React.Component<{
                         ) : <CircularProgress key={typeId} size={30} thickness={3} />;
                     })
                 }
+                <TweetFeed hashtag={normalize(this.pokemon.name)} />
             </div>
         ) : <CircularProgress size={60} thickness={7} />;
     }
