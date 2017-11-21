@@ -18,13 +18,25 @@ export type NamedAPIResource = {
     url: string;
 };
 
+export type Stat = {
+    id: number;
+    name: string;
+};
+
 export type PokemonStat = {
+    stat: Stat;
     effort: number;
     base_stat: number;
 };
 
 export type PokemonType = {
     slot: number;
+    type: Type;
+};
+
+export type Type = {
+    url: string;
+    name: string; 
 };
 
 export type Pokemon = {
@@ -37,20 +49,31 @@ export type Pokemon = {
     weight: number;
     stats: Array<PokemonStat>;
     sprites: PokemonSprites;
+    types: Array<PokemonType>;
 };
 
-export type CachedListItem = { 
-    tags: Array<string>, 
+export type PokemonListItem = { 
     name: string, 
-    url: string
+    id: string
+};
+
+export type ResultList = Array<ResultListItem>;
+
+export type ResultListItem = {
+    rank: number;
+    pokemon: PokemonListItem;
 };
 
 export interface Model {
     initializing: boolean;
     pendingRequest: Array<string>;
-    searchResult: Array<{ name: string, url: string }>;
-    listCache: Array<CachedListItem>;
-    pokemons: Array<Pokemon>;
+    searchResult: ResultList;
+    pokemonList: Array<PokemonListItem>;
+    typeAverageStats: Array<{ 
+        type: { name: string, id: number }
+        stats: Array<{name: string, value: number}>}>;
+    pokemon: Pokemon | null;
+    names: Array<string>;
 }
 /**
  * In SAM we can represent a model with some UI element or with a ViewModel (or something else ?).

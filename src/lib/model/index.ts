@@ -5,8 +5,11 @@ export const model: Model = observable({
     initializing: true,
     pendingRequest: [],
     searchResult: [],
-    // Caching pokemons name and url for faster result
-    listCache: [],
+    // Caching pokemons names
+    names: [],
+    pokemonList: [],
     // Pokemon details
-    pokemons: []
+    pokemon: null,
+    // Array of average stats by type
+    typeAverageStats: [],
 });
