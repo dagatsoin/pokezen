@@ -1,3 +1,4 @@
+import { Twitter } from "twit";
 // import { CONTROL_STATE } from "../vendor/arcanium/api/types";
 
 // Type from https://pokeapi.co/docsv2/#pokemon
@@ -73,6 +74,7 @@ export interface Model {
         type: { name: string, id: number }
         stats: Array<{name: string, value: number}>}>;
     pokemon: Pokemon | null;
+    tweets: Twitter.Status[];
     names: Array<string>;
 }
 /**

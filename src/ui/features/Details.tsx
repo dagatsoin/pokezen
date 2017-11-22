@@ -6,7 +6,7 @@ import { Model } from "../../api/types";
 import { computed, when } from "mobx";
 import { normalize, getIdFromUrl } from "../../lib/utils";
 
-import TweetFeed from "../components/TweetFeed";
+import TweetFeed from "../containers/TweetFeed";
 import CircularProgress from "material-ui/CircularProgress";
 import Type from "../components/Type";
 import { List, ListItem } from "material-ui/List";
@@ -27,7 +27,7 @@ export default class Details extends React.Component<{
     loadAverageTypeStats = when(
         () => !!this.pokemon,
         () => {
-            this.types.forEach(id => dispatch("FETCH_AVARAGE_TYPE_STATS", id));
+            this.types.forEach(id => dispatch("FETCH_AVERAGE_TYPE_STATS", id));
         }
     );
 
@@ -145,7 +145,7 @@ export default class Details extends React.Component<{
                     }
                 </div>
                 <div style={{ display: "flex", justifyContent: "center" }}>
-                    <TweetFeed hashtag={normalize(this.pokemon.name)} />
+                    <TweetFeed/>
                 </div>
             </div>
         ) :

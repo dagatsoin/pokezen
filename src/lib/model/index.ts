@@ -8,8 +8,10 @@ export const model: Model = observable({
     // Caching pokemons names
     names: [],
     pokemonList: [],
+    response: [], 
     // Pokemon details
     pokemon: null,
     // Array of average stats by type
     typeAverageStats: [],
+    tweets: []
 });

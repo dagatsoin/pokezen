@@ -8,6 +8,8 @@ import { model } from "./lib/model";
 import MuiThemeProvider from "material-ui/styles/MuiThemeProvider";
 import { container, dispatch } from "./vendor/arcanium/container";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+// start services
+import "./lib/services/services";
 
 import Home from "./ui/features/Home";
 import Details from "./ui/features/Details";

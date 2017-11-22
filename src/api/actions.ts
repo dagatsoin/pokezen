@@ -5,6 +5,7 @@ import actions from "../vendor/arcanium/lib/action/index";
 import { Dispatch } from "../vendor/arcanium/api/types";
 import { PokemonListItem, ResultList, Pokemon } from "./types";
 import { getIdFromUrl } from "../lib/utils";
+import { Response, Twitter } from "twit";
 
 // Todo: SAM pattern violation. Need to implement mutations. Action should not mutate the model!
 
@@ -61,19 +62,36 @@ actions.registerAction("FETCH_POKEMON", function ({ dispatch }: { dispatch: Disp
     dispatch("PUSH_REST_CALL_ID", "FETCH_POKEMON");
 });
 
-actions.registerAction("FETCH_AVARAGE_TYPE_STATS", function ({dispatch}: { dispatch: Dispatch}, id: string) {
+actions.registerAction("FETCH_AVERAGE_TYPE_STATS", function ({dispatch}: { dispatch: Dispatch}, id: string) {
     Axios.get("average_type_stats/" + id).then(function (response: AxiosResponse) {
-        dispatch("DELETE_REST_CALL_ID", "FETCH_AVARAGE_TYPE_STATS");
-        dispatch("COMMIT_AVARAGE_TYPE_STATS", response.data);
+        dispatch("DELETE_REST_CALL_ID", "FETCH_AVERAGE_TYPE_STATS");
+        dispatch("COMMIT_AVERAGE_TYPE_STATS", response.data);
     }).catch(function (reason: any) {
-        dispatch("DELETE_REST_CALL_ID", "FETCH_AVARAGE_TYPE_STATS");
+        dispatch("DELETE_REST_CALL_ID", "FETCH_AVERAGE_TYPE_STATS");
         console.error(reason);
     });
 
-    dispatch("PUSH_REST_CALL_ID", "FETCH_AVARAGE_TYPE_STATS");
+    dispatch("PUSH_REST_CALL_ID", "FETCH_AVERAGE_TYPE_STATS");
 });
 
-actions.registerAction("COMMIT_AVARAGE_TYPE_STATS", function(
+actions.registerAction("FETCH_TWEETS", function({dispatch}: {dispatch: Dispatch}, q: string) {
+    Axios.get("tweets/" + q).then(function (response: AxiosResponse) {
+        dispatch("DELETE_REST_CALL_ID", "FETCH_TWEETS");
+        console.log(response)
+        dispatch("COMMIT_TWEETS", (response.data as Response).statuses);
+    }).catch(function (reason: any) {
+        dispatch("DELETE_REST_CALL_ID", "FETCH_TWEETS");
+        console.error(reason);
+    });
+
+    dispatch("PUSH_REST_CALL_ID", "FETCH_TWEETS");
+});
+
+/**
+ *  Actions for commiting
+ */
+
+actions.registerAction("COMMIT_AVERAGE_TYPE_STATS", function(
     {dispatch}: { dispatch: Dispatch },
     averageStats: {type: {id: number, name: string}, stats: Array<{name: string, value: number}>}
 ) {
@@ -103,4 +121,8 @@ actions.registerAction("COMMIT_INITIAL_DATA", function ({ dispatch }: { dispatch
 }
 ) {
     model.names.splice(0, model.names.length, ...initialData.names);
+});
+
+actions.registerAction("COMMIT_TWEETS", function ({ dispatch }: { dispatch: Dispatch }, statuses: Twitter.Status[]) {
+    model.tweets.splice(0, model.tweets.length, ...statuses);
 });

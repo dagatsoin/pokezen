@@ -6,13 +6,13 @@ Find them all...
 - search pokemon by name
 - display a list of pokemons
 - show a details page
-- basic live tweet of the pokemon account
+- basic live tweets
 - show a picture of the pokemon and fall back to its sprite
 - compare averate stats
 - bookmarkables pages
 
 ## Todo
-- specfifc live tweets needs to use the Twitter OAuth and API.
+- better live tweets style
 - write tests
 - finish SAM pattern implementation
 - bonus part (left in favor of the cache server)
@@ -25,7 +25,9 @@ Find them all...
 ## Coding Intention
 
 This project is intented to show my commitment ability from a lead dev point of view.
-The main effort has been to architecture the project to allow new members to quickly be productive.
+The main effort has been to architecture the project to:
+- allow new members to quickly be productive.
+- quick iterate on simple code modules
 
 ## Bootstraping
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app) to prevent the
